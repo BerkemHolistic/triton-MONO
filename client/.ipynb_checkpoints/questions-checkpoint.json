@@ -1,0 +1,316 @@
+{
+  "questionnaire": [
+    {
+      "category": "Basic Information",
+      "type":"extraction",
+      "question": "What is the name of the AI system or project?",
+      "mapping": {"title": []}
+    },
+    {
+      "category": "Basic Information",
+      "type":"summarization",
+      "question": "Project Description",
+      "mapping": {"description": []}
+    },
+    {
+      "category": "Basic Information",
+      "type":"multiple",
+      "question": "Which experiences does this project enhance?",
+      "options": ["Consumer", "Customer", "Employee","Commercial","Product Management","Data & AI Foundation","Technology Foundation"],
+      "mapping": {"experience": ["consumerExperience","customerExperience","employeeExperience","commercialExperience","productManagementExperience","dataAiExperience","technologyExperience"]}
+    },
+    {
+      "category": "Basic Information",
+      "type":"multiple",
+      "question": "Which functions relate to the project's ownership and hierarchy?",
+      "options": ["Audit","Finance","Legal","Supply Chain","Data & Analytics","Information Technology","Research & Development","Customer Development","Human Resources","Operations","Communications","General Management","Marketing & CMI"],
+      "mapping": {"function": ["auditFunction","financeFunction","legalFunction","supplyChainFunction","dataAnalyticsFunction","informationTechnologyFunction","researchDevelopmentFunction","customerDevelopmentFunction","humanResourcesFunction","operationsFunction","communicationsFunction","generalManagementFunction","marketingCmiFunction"]}
+    },
+    {
+      "category": "End Purpose",
+      "type":"multiple",
+      "question": "Which of the following enterprise use-cases apply to your solution?",
+      "options": ["Decision-making in employment or training","Image processing involving individuals","Biometric data processing","Safety and security measures","Health-related recommendations","Creditworthiness assessments","Determining insurance terms and access","None of the above"],
+      "mapping": {"enterpriseUseCases": ["recruitment","facialRecognition","biometricData","safetySecurity","recommendProducts","evaluateCreditworthiness","determineAccess","enterpriseNone"]}
+    },
+    {
+      "category": "End Purpose",
+      "type":"multiple",
+      "question": "How does this solution impact society?",
+      "options": [
+    "Service access",
+    "Healthcare",
+    "Law enforcement",
+    "Freedom of expression",
+    "Environment",
+    "Job automation",
+    "None of the above"],
+      "mapping": {"soceityLevel": ["controlAccessToServices","diagnosisOrTreatment","policing","dignity","enviromentalImpact","automatesTasks","soceityLevelNone"]}
+    },
+    {
+      "category": "End Purpose",
+      "type": "description",
+      "question": "Please provide any detail regarding the AI system's use-case.",
+      "mapping": {"detailSystemUseCase": []}
+    },
+    {
+      "category": "Scope",
+      "type":"single",
+      "question": "Does the AI system interact with outsiders?",
+      "options": ["Yes","No"],
+      "mapping": {"externalParties": ["yes","no"]}
+    },
+    {
+      "category": "Scope",
+      "type":"multiple",
+      "question": "Which outsiders does the AI system engage with?",
+      "options": ["Customers", "Clients", "Suppliers", "Other"],
+      "mapping": {"whoAreExternalParties": ["customers","clients","suppliers","externalPartiesOther"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Describe the external entities involved.",
+      "mapping": {"describeOtherExternalParties": []}
+    },
+    {
+      "category": "Scope",
+      "type":"multiple",
+      "question": "Which internal groups are involved?",
+      "options": ["Employees", "Organisation's Systems", "Contractors", "Others"],
+      "mapping": {"whoAreInternalParties": ["employees","systems","contractors","internalPartiesOther"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Please describe any Internal parties.",
+      "mapping": {"describeOtherInternalParties": []}
+    },
+    {
+      "category": "Scope",
+      "type":"single",
+      "question": "Is the user explicitly informed that they are interacting with an automated AI system?",
+      "options": ["Yes", "No"],
+      "mapping": {"clearCommunicatedAutomatedSystem": ["yes","no"]}
+
+    },
+    {
+      "category": "Scope",
+      "type":"multiple",
+      "question": "What methods are used to notify the user about the AI system's automated nature?",
+      "options": ["On-screen notification", "Mentioned in User Terms of Service", "Included in training materials", "Other"],
+      "mapping": {"howIsUserInformedAboutAutomatedSystem": ["popup","forms","trainingMaterials","userInformedOther"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Detail any methods used to inform users about the AI system being automated.",
+      "mapping": {"explainUserInformedAboutAutomedSystemOther": []}
+    },
+    {
+      "category": "Scope",
+      "type":"multiple",
+      "question": "What options are available for users who want to contest the AI system's decisions?",
+      "options": ["Providing contact details", "Messaging feature within the tool", "Direct in-tool chat support", "Detailed report available upon request", "Other", "None provided"],
+      "mapping": {"mechanismsIfUserChallengesDecisions": ["contactDetails","inToolMessage","inToolChat","longFormReport","mechanismsIfUserChallengesDecisionsOther","mechanismsIfUserChallengesDecisionsNone"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Describe the provisions in place for users wanting to question or challenge the AI system's decisions.",
+      "mapping": {"explainMechanismsIfUserChallengesDecisionsOther": []}
+    },
+    {
+      "category": "Scope",
+      "type":"multiple",
+      "question": "Which of the following training or guidance resources are accessible to users?",
+      "options": ["Hands-on workshops", "E-learning modules", "User assessments", "Dedicated help sections", "Documentation (like Model Cards)", "Guidance within the tool", "Other methods", "None provided"],
+      "mapping": {"trainingMethods": ["workshop","onlineTraining","assessment","helpPages","repoDocumentation","inToolGuidance","trainingMethodsOther","trainingMethodsNone"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Please describe any guidance/training methods available to or undertaken by the end users.",
+      "mapping": {"explainTrainingMethodsOther": []}
+    },
+    {
+      "category": "Scope",
+      "type":"single",
+      "question": "How widely deployed is the AI system?",
+      "options": ["Controlled Environment / Pilot", "Limited to a specific jurisdiction", "Expanded across various jurisdictions within the organization", "Worldwide deployment"],
+      "mapping": {"howWidelyDeployed": ["controlledEnvironment","local","multipleJurisdictions","global"]}
+    },
+    {
+      "category": "Scope",
+      "type":"description",
+      "question": "Please provide detail regarding the AI system's scope and interaction with users:",
+      "mapping": {"systemScopeDetails": []}
+    },
+    {
+      "category": "Data Type",
+      "type":"multiple",
+      "question": "What is/are the data type(s) being processed or generated as an outcome of the AI system?",
+      "options": ["Public","Internal","Confidential","Personal Data","Sensitive Personal Data","Restricted Information"],
+      "mapping": {"dataType": ["dataTypePublic","dataTypeInternal","dataTypeConfidential","dataTypePersonal","dataTypeSensistivePersonal","dataTypeRestricted"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"multiple",
+      "question": "From where is the data sourced or originated?",
+      "options": ["Customer submissions", "Client records", "Employee databases", "Organization's internal data", "Vendor-supplied datasets", "Public or open-source datasets", "Other sources"],
+      "mapping": {"dataSource": ["customers","clients","employees","internalBusiness","thirdPartyDataset","experimental","dataSourceOther"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"description",
+      "question": "Please describe any data sources that are used.",
+      "mapping": {"explainDataSourceOther": []}
+    },
+    {
+      "category": "Data Type",
+      "type":"multiple",
+      "question":  "What best describes the nature or format of the data?",
+      "options": ["Text-based", "Tables or records", "Audio recordings", "Visual images", "Other (please specify below)"],
+      "mapping": {"dataCategory": ["textual","tabular","sound","image","dataCategoryOther"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"description",
+      "question": "Please describe any data categories, types or formats that are used.",
+      "mapping": {"explainDataCategoryOther": []}
+    },
+    {
+      "category": "Data Type",
+      "type":"single",
+      "question": "Can individuals (like customers, employees) choose not to have their data processed by this AI system?",
+      "options": ["Yes","No"],
+      "mapping": {"dataSubjectsAbleToOptOut": ["yes","no"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"multiple",
+      "question": "How do individuals learn about the option to opt-out?",
+      "options": ["Notification window", "User Agreement or Terms of Service", "User training resources", "Other methods"],
+      "mapping": {"informedOfOptOutMechanism": ["popup","forms","trainingMaterials","informedOfOptOutMechanismOther"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"description",
+      "question": "How are individuals notified about their option to opt-out?",
+      "mapping": {"explainInformedOfOptOutMechanismOther": []}
+    },
+    {
+      "category": "Data Type",
+      "type":"single",
+      "question": "Is there a procedure to handle requests from individuals to delete their personal data?",
+      "options": ["Yes","No"],
+      "mapping": {"deletionOfPersonalData": ["yes","no"]}
+    },
+    {
+      "category": "Data Type",
+      "type":"description",
+      "question":  "Elaborate on the nature and use of data within the AI system.",
+      "mapping": {"detailDataUsed": []}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"single",
+      "question": "To what degree does the AI system operate independently?",
+      "options":  ["Fully Autonomous - outputs are directly used without internal review", "Human Supervised - primarily used to support decision-making"],
+      "mapping": {"autonomy": ["autonomous","humanInTheLoop"]}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"single",
+      "question": "If the AI system is fully autonomous, how crucial is it to the business operations?",
+      "options":  ["Non-Critical - experimental or operated in a controlled setting", "Critical - disruptions may arise without its proper functioning"],
+      "mapping": {"howEssentialAutonomous": ["notEssential","essential"]}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"single",
+      "question": "When the AI system operates with human supervision, how vital is it to the decision-making process?",
+      "options": ["Mild Impact - it provides insights but isn't central", "Moderate Impact - a significant part of decision-making", "High Impact - essential to the process; its absence might cause disruptions"],
+      "mapping": {"howEssentialHumanInTheLoop": ["low","medium","high"]}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"single",
+      "question": "Should the AI system drastically fail or not meet its performance indicators, how would the wider organization be affected?",
+      "options":  ["No Impact - other business services and processes remain unaffected", "Slight Impact - some disturbance to the business unit, not organization-wide", "Considerable Impact - interruptions to a few services and potential customer dissatisfaction", "Severe Impact - numerous services disrupted, leading to major business and customer challenges"],
+      "mapping": {"damageCausedIfSubstantialFailure": ["none","minor","major","critical"]}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"single",
+      "question": "If the AI system only marginally fails to meet its KPIs (a \"near miss\"), what would be the damage caused to the broader organisation?",
+      "options": ["None - associated business functions, services, and processes will not be impacted", "Minor - some impact to the business unit, but will not be felt across the organisation", "Major - few services interrupted, business functions or customers will be impacted","Critical - many downstream services interrupted, business functions or customers will be severely impacted"],
+      "mapping": {"damageCausedIfMarginalFailure": ["none","minor","major","critical"]}
+    },
+    {
+      "category": "Mission Critical",
+      "type":"description",
+      "question": "Please provide detail regarding the impact of AI system underperformance below.",
+      "mapping": {"explainImpactOfUnderPerformance": []}
+    },
+    {
+      "category": "Technology",
+      "type":"multiple",
+      "question": "Which technological features does the AI system have?",
+      "options": ["Computer Vision","Natural Language Processing","Recommendation Systems","Speech Recognition","Robotic Process Automation","Decision Support Systems","Knowledge-base","Virtual Agents","Topic Modelling","Segmentation and Curation","Not decided / Unsure","Other: Please describe the Other capabilities."],
+      "mapping": {"capabilities": ["computerVision","nlp","recommenderSystems","speechRecognition","rpa","decisionSupportSystems","knowledgeBase","virtualAgents","topicModelling","segmentation","capabilitiesNotDecided","capabilitiesOther"]}
+    },
+    {
+      "category": "Technology",
+      "type":"description",
+      "question": "Please describe the AI system capabilities.",
+      "mapping": {"explainCapabilitiesOther": []}
+    },
+    {
+      "category": "Technology",
+      "type":"multiple",
+      "question": "Which tasks or function are being performed or execute by the AI system?",
+      "options": ["Forecasting", "Clustering","Pattern Recognition","Inference","Optimization","Simulation","Search","Not decided / Unsure","Other: Please describe the Other tasks."],
+      "mapping": {"tasksPerformedBySystem": ["forecasting","clustering","patternRecognition","inference","optimization","simulation","search","tasksPerformedBySystemNotDecided","tasksPerformedBySystemOther"]}
+    },
+    {
+      "category": "Technology",
+      "type":"description",
+      "question": "Please describe the AI system tasks or function.",
+      "mapping": {"explainTasksPerformedBySystemOther": []}
+    },
+    {
+      "category": "Technology",
+      "type":"multiple",
+      "question": "What is the output generated by the AI system?",
+      "options": ["Single number or array of numbers", "Labels or categories","Rank","Natural language text","Image","Video","Sound or speech","Not decided / Unsure", "Other: Please describe the Other outputs."],
+      "mapping": {"outputGenerated": ["numbers","labels","rank","text","image","video","sound","outputGeneratedNotDecided","outputGeneratedOther"]}
+    },
+    {
+      "category": "Technology",
+      "type":"description",
+      "question": "Please describe the AI system outputs.",
+      "mapping": {"explainOutputGeneratedOther": []}
+    },
+    {
+      "category": "Technology",
+      "type":"single",
+      "question": "Is the AI system self-adapting based on new information or user interactions?",
+      "options": ["Yes, in near real-time", "Yes, but only when software updates are made", "No, changes are only made when bugs or other issues are raised"],
+      "mapping": {"selfAdapting": ["yesRealTime","yesWhenUpdatedMade","no"]}
+    },
+    {
+      "category": "Technology",
+      "type":"single",
+      "question": "Are the AI system's users able to opt-out from using the AI system?",
+      "options": ["Yes","No"],
+      "mapping": {"canUsersOptOut": ["yes","no"]}
+    },
+    {
+      "category": "Technology",
+      "type":"description",
+      "question": "Please provide detail regarding the technological capability of the AI system.",
+      "mapping": {"explainTechnologicalCapabilities": []}
+    }
+  ]
+}

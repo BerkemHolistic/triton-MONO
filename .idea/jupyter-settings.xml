@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="knownRemoteServers">
+      <list>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="99e27d08fa1f41223c14ce9f772e8d6f8984c33a5be25bea" />
+          <option name="urlString" value="http://localhost:8889/" />
+          <authParams2>
+            <map>
+              <entry key="token" value="99e27d08fa1f41223c14ce9f772e8d6f8984c33a5be25bea" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+        <JupyterConnectionParameters>
+          <option name="authType" value="notebook" />
+          <option name="token" value="6fd8dea83b554f6167f9697959d23f57f4c75641d1c87a3e" />
+          <option name="urlString" value="http://localhost:8890/" />
+          <authParams2>
+            <map>
+              <entry key="token" value="6fd8dea83b554f6167f9697959d23f57f4c75641d1c87a3e" />
+            </map>
+          </authParams2>
+        </JupyterConnectionParameters>
+      </list>
+    </option>
+    <option name="moduleParameters">
+      <map>
+        <entry key="$PROJECT_DIR$/../foundationsofai-main/notebooks/.idea/notebooks.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../turtle_face_recognition_tutorial/.idea/turtle_face_recognition_tutorial.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

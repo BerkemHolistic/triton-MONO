@@ -1,0 +1,1 @@
+from pipeline.pipeline_triton import QuestionAnsweringSystem

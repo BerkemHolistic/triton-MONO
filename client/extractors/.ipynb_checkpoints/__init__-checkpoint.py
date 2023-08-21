@@ -1,0 +1,1 @@
+from extractors.extractors import extract_text_from_pdf

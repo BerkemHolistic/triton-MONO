@@ -1,0 +1,21 @@
+git clone https://github.com/981526092/risk_mapping_automation_triton.git
+
+cd risk_mapping_automation_triton
+
+# Build the Docker image
+docker build -t custom-tritonserver .
+
+
+# Run the custom Docker image with falcon_7b_instruct
+docker run --gpus=all -it --shm-size=100GB --rm --ulimit memlock=-1 --ulimit stack=134217728 -p 8000:8000 -p 8001:8001 -p 8002:8002 -ti --net=host -v /home/jupyter/risk_mapping_automation_triton/models:/models custom-tritonserver tritonserver --model-repository=/models --model-control-mode=explicit --load-model=SentenceTransformer --load-model=MultiQA --load-model=ExtractiveQA --load-model=ParagraphCreator --load-model=Summarise --load-model=falcon_7b_instruct
+
+
+# On another terminal
+
+cd risk_mapping_automation_triton/client
+
+bash setup_environment.sh
+
+conda activate python310
+
+

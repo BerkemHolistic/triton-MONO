@@ -1,0 +1,7 @@
+typing
+scikit-learn
+scipy
+tqdm
+tritonclient[all]
+pdfminer.six
+haisdk-0.5.28-py3-none-any.whl

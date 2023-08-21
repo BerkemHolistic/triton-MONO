@@ -1,0 +1,25 @@
+{
+  "questionnaire": [
+  {
+      "category": "Scope",
+      "type":"description",
+      "question": "Is this system use Artificial Intelligence?",
+      "options": ["Yes", "No"],
+      "mapping": {"containAI": ["yes","no"]}
+   },
+   {
+      "category": "Scope",
+      "type":"description",
+      "question": "Is this system use Artificial Intelligence according to the AI definition of EU AI Act: \"A system that is designed to operate with elements of autonomy and that, based on machine and/or human-provided data and inputs, infers how to achieve a given set of objectives using machine learning and/or logic- and knowledge based approaches, and produces system-generated outputs such as content (generative AI systems), predictions, recommendations or decisions, influencing the environments with which the AI system interacts.?\"",
+      "options": ["Yes", "No"],
+      "mapping": {"containAI": ["yes","no"]}
+   },
+   {
+      "category": "Scope",
+      "type":"description",
+      "question": "Is this system use Artificial Intelligence according to the AI definition of OECD: \"A machine-based system that can, for a given set of human-defined objectives, make predictions, recommendations, or decisions influencing real or virtual environments. AI systems are designed to operate with varying levels of autonomy.\"",
+      "options": ["Yes", "No"],
+      "mapping": {"containAI": ["yes","no"]}
+   }
+   ]
+}
