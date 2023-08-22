@@ -28,7 +28,7 @@ class TritonPythonModel():
 
         return generated_text
 
-    def find_paragraphs(self,input_text):
+    def execute(self,input_text):
         # Generate a more structured version of the input text
         structured_text = self.generate_text(input_text)
 
