@@ -5,6 +5,13 @@ cd risk_mapping_automation_triton
 # Build the Docker image
 docker build -t custom-tritonserver .
 
+# Berkem instructions
+# Run the docker image 
+docker run --shm-size=1g --ulimit memlock=-1 -p 8000:8000 -p 8001:8001 -p 8002:8002 --ulimit stack=67108864 -ti nvcr.io/nvidia/tritonserver:22.08-py3 
+
+# clone repository
+git clone *the repo that contains the models repo*
+
 
 # Run the custom Docker image with falcon_7b_instruct
 docker run --gpus=all -it --shm-size=100GB --rm --ulimit memlock=-1 --ulimit stack=134217728 -p 8000:8000 -p 8001:8001 -p 8002:8002 -ti --net=host -v /home/jupyter/risk_mapping_automation_triton/models:/models custom-tritonserver tritonserver --model-repository=/models --model-control-mode=explicit --load-model=SentenceTransformer --load-model=MultiQA --load-model=ExtractiveQA --load-model=ParagraphCreator --load-model=Summarise --load-model=falcon_7b_instruct

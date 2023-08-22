@@ -34,60 +34,7 @@ class InferenceLoader:
             response = self.process_inference([input_data], ["embedding"], self.inference_type)
             if response:
                 return response.as_numpy("embedding")
-
-    def paragraph_creator(self, text):
-        if self.inference_type == "ParagraphFinder":
-            input_data = self.create_infer_input("INPUT0", [text])
-            response = self.process_inference([input_data], ["OUTPUT0"], self.inference_type)
-            if response:
-                result = np.array(response.as_numpy("OUTPUT0")).flatten()
-
-                decoded_result = []
-                for x in result:
-                    # Convert string representation of bytes to actual bytes
-                    x = codecs.escape_decode(x)[0]
-
-                    # Decode with utf-8, ignore undecodable bytes
-                    decoded_string = x.decode('utf-8', 'ignore')
-
-                    # Remove non-ASCII characters
-                    decoded_string = re.sub(r'[^\x00-\x7F]+', '', decoded_string)
-
-                    decoded_result.append(decoded_string)
-
-                return decoded_result
-
-    def summarise(self, text,limit):
-        if self.inference_type == "Summarise":
-            input_data = self.create_infer_input("text", [text])
-            input_limit = self.create_infer_input("limit", [str(limit)])
-            response = self.process_inference([input_data,input_limit], ["output"], self.inference_type)
-            if response:
-                return [response.as_numpy("output")[0].decode("utf-8")]         
-    
-    def predict_LM(self,prompt,limit=200):
-        if self.inference_type == "falcon_7b_instruct" or self.inference_type == "llama2_7b_chat":
-
-            separator = "Answer:"
-
-            # Construct the prompt with the separator
-            # prompt = f"Context: {context}. Question: {question}. {separator}"
-            input_question = self.create_infer_input("question", [prompt])
-            input_limit = self.create_infer_input("limit", [str(limit)])
-            response = self.process_inference([input_question,input_limit], ["generated_text"], self.inference_type)
-
-            if response:
-                # Split the generated text using the separator
-                full_text = response.as_numpy("generated_text")[0].decode('utf-8')
-                full_text = full_text.replace('<|endoftext|>','')
-                # Make sure the separator is present in the response before trying to split
-                if separator in full_text:
-                    answer = full_text.split(separator, 1)[1].strip()
-                    return [answer]
-                else:
-                    return [full_text]  # Or any other default action when the separator isn't present
-    
-    
+            
     def predict_SM(self, question,context=None,option=None):
         if self.inference_type == "ExtractiveQA":
             input_question = self.create_infer_input("question", [question])
@@ -118,6 +65,28 @@ class InferenceLoader:
                 return options, probs
 
         
+
+    def paragraph_creator(self, text):
+        if self.inference_type == "ParagraphFinder":
+            input_data = self.create_infer_input("INPUT0", [text])
+            response = self.process_inference([input_data], ["OUTPUT0"], self.inference_type)
+            if response:
+                result = np.array(response.as_numpy("OUTPUT0")).flatten()
+
+                decoded_result = []
+                for x in result:
+                    # Convert string representation of bytes to actual bytes
+                    x = codecs.escape_decode(x)[0]
+
+                    # Decode with utf-8, ignore undecodable bytes
+                    decoded_string = x.decode('utf-8', 'ignore')
+
+                    # Remove non-ASCII characters
+                    decoded_string = re.sub(r'[^\x00-\x7F]+', '', decoded_string)
+
+                    decoded_result.append(decoded_string)
+
+                return decoded_result
 
 
 
