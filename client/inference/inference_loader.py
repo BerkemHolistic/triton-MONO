@@ -27,11 +27,12 @@ class InferenceLoader:
             return None
 
     def qa_predict(self, question,context=None,option=None):
-        input_question = self.create_infer_input("question", [question])
-        input_context = self.create_infer_input("context", [context])
-        response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
-        if response:
-            return [response.as_numpy("answer")[0].decode('utf-8')]
+        if self.inference_type == "ExtractiveQA":
+            input_question = self.create_infer_input("question", [question])
+            input_context = self.create_infer_input("context", [context])
+            response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
+            if response:
+                return [response.as_numpy("answer")[0].decode('utf-8')]
 
     def paragraph_creator(self, text):
         if self.inference_type == "ParagraphFinder":
