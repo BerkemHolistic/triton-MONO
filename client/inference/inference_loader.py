@@ -6,8 +6,6 @@ import re
 import codecs
 
 
-
-
 class InferenceLoader:
     def __init__(self, inference_type,url_address="localhost:8000"):
         self.url_address = url_address
@@ -27,6 +25,13 @@ class InferenceLoader:
         except Exception as e:
             print(f"Error during inference: {e}")
             return None
+
+    def qa_predict(self, question,context=None,option=None):
+        input_question = self.create_infer_input("question", [question])
+        input_context = self.create_infer_input("context", [context])
+        response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
+        if response:
+            return [response.as_numpy("answer")[0].decode('utf-8')]
 
     def paragraph_creator(self, text):
         if self.inference_type == "ParagraphFinder":
