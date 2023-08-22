@@ -20,4 +20,4 @@ if __name__ == "__main__":
     # print(riskmapping_creation(project_result,risk_mapping_result,False))
     
     test_model = InferenceLoader("ParagraphFinder")
-    print(test_model.predict(question="What is my name?",context = "I am Zekun Wu"))
+    print(test_model.paragraph_creator(question="What is my name?",context = "I am Zekun Wu"))
