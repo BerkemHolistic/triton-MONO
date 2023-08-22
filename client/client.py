@@ -20,4 +20,4 @@ if __name__ == "__main__":
     # print(riskmapping_creation(project_result,risk_mapping_result,False))
     
     test_model = InferenceLoader("ExtractiveQA")
-    print(test_model.qa_predict('Do you want to go chucky cheese?'))
+    print(test_model.predict_SM('Do you want to go chucky cheese?'))

@@ -6,6 +6,8 @@ import re
 import codecs
 
 
+
+
 class InferenceLoader:
     def __init__(self, inference_type,url_address="localhost:8000"):
         self.url_address = url_address
@@ -26,13 +28,12 @@ class InferenceLoader:
             print(f"Error during inference: {e}")
             return None
 
-    def qa_predict(self, question,context=None,option=None):
-        if self.inference_type == "ExtractiveQA":
-            input_question = self.create_infer_input("question", [question])
-            input_context = self.create_infer_input("context", [context])
-            response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
+    def sentence_embedding(self,sentence):
+        if self.inference_type == "SentenceTransformer":
+            input_data = self.create_infer_input("text", [sentence])
+            response = self.process_inference([input_data], ["embedding"], self.inference_type)
             if response:
-                return [response.as_numpy("answer")[0].decode('utf-8')]
+                return response.as_numpy("embedding")
 
     def paragraph_creator(self, text):
         if self.inference_type == "ParagraphFinder":
@@ -55,3 +56,77 @@ class InferenceLoader:
                     decoded_result.append(decoded_string)
 
                 return decoded_result
+
+    def summarise(self, text,limit):
+        if self.inference_type == "Summarise":
+            input_data = self.create_infer_input("text", [text])
+            input_limit = self.create_infer_input("limit", [str(limit)])
+            response = self.process_inference([input_data,input_limit], ["output"], self.inference_type)
+            if response:
+                return [response.as_numpy("output")[0].decode("utf-8")]         
+    
+    def predict_LM(self,prompt,limit=200):
+        if self.inference_type == "falcon_7b_instruct" or self.inference_type == "llama2_7b_chat":
+
+            separator = "Answer:"
+
+            # Construct the prompt with the separator
+            # prompt = f"Context: {context}. Question: {question}. {separator}"
+            input_question = self.create_infer_input("question", [prompt])
+            input_limit = self.create_infer_input("limit", [str(limit)])
+            response = self.process_inference([input_question,input_limit], ["generated_text"], self.inference_type)
+
+            if response:
+                # Split the generated text using the separator
+                full_text = response.as_numpy("generated_text")[0].decode('utf-8')
+                full_text = full_text.replace('<|endoftext|>','')
+                # Make sure the separator is present in the response before trying to split
+                if separator in full_text:
+                    answer = full_text.split(separator, 1)[1].strip()
+                    return [answer]
+                else:
+                    return [full_text]  # Or any other default action when the separator isn't present
+    
+    
+    def predict_SM(self, question,context=None,option=None):
+        if self.inference_type == "ExtractiveQA":
+            input_question = self.create_infer_input("question", [question])
+            input_context = self.create_infer_input("context", [context])
+            response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
+            if response:
+                return [response.as_numpy("answer")[0].decode('utf-8')]
+        
+        elif self.inference_type == "AbstractiveQA":
+            input_question = self.create_infer_input("question", [question])
+            input_context = self.create_infer_input("context", [context])
+            response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
+            if response:
+                return [response.as_numpy("answer")[0].decode('utf-8')]
+            
+        elif self.inference_type == "MultiQA":
+            questions = [question]*len(option)
+            contexts = [context]*len(option)
+            input_question = self.create_infer_input("question", questions)
+            input_context = self.create_infer_input("context", contexts)
+            input_options = self.create_infer_input("options", option)
+            response = self.process_inference([input_question, input_context, input_options], ["options", "probs"], self.inference_type)
+            if response:
+                original_options = np.array(response.as_numpy("options")).flatten()
+                original_probs = np.array(response.as_numpy("probs")).flatten()
+                options = [ast.literal_eval(item.decode('utf-8'))[0].decode('utf-8') for item in original_options]
+                probs = list(original_probs.astype(float))
+                return options, probs
+
+        
+
+
+
+
+
+        
+        
+            
+        
+        
+        
+        
