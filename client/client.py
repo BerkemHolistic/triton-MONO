@@ -20,4 +20,4 @@ if __name__ == "__main__":
     # print(riskmapping_creation(project_result,risk_mapping_result,False))
     
     test_model = InferenceLoader("ParagraphFinder")
-    print(test_model.paragraph_creator( "I love chucky cheese" ))
+    print(test_model.predict('What is the colour of the sky?','blue'))
