@@ -42,9 +42,12 @@ class TritonPythonModel():
         for request in requests:
             in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
             text = str(in_0.as_numpy()[0])
+            logging.info(in_0)
+            logging.info(text)
             try:
                 with torch.inference_mode():
                     paragraphs = self.paragraph_finder(text)
+                    logging.info(paragraphs)
                     # Here change np.object to object
                     out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype=object)
                     logging.info(out_tensor)
