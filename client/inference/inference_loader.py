@@ -35,6 +35,28 @@ class InferenceLoader:
             if response:
                 return response.as_numpy("embedding")
 
+    def paragraph_creator(self, text):
+        if self.inference_type == "ParagraphFinder":
+            input_data = self.create_infer_input("INPUT0", [text])
+            response = self.process_inference([input_data], ["OUTPUT0"], self.inference_type)
+            if response:
+                result = np.array(response.as_numpy("OUTPUT0")).flatten()
+                decoded_result = []
+                for x in result:
+                    # Convert string representation of bytes to actual bytes
+                    x = codecs.escape_decode(x)[0]
+
+                    # Decode with utf-8, ignore undecodable bytes
+                    decoded_string = x.decode('utf-8', 'ignore')
+
+                    # Remove non-ASCII characters
+                    decoded_string = re.sub(r'[^\x00-\x7F]+', '', decoded_string)
+
+                    decoded_result.append(decoded_string)
+
+                return decoded_result
+
+
     def predict_SM(self, question,context=None,option=None):
         if self.inference_type == "ExtractiveQA":
             input_question = self.create_infer_input("question", [question])
@@ -63,28 +85,6 @@ class InferenceLoader:
                 options = [ast.literal_eval(item.decode('utf-8'))[0].decode('utf-8') for item in original_options]
                 probs = list(original_probs.astype(float))
                 return options, probs
-
-    def paragraph_creator(self, text):
-        if self.inference_type == "ParagraphFinder":
-            input_data = self.create_infer_input("INPUT0", [text])
-            response = self.process_inference([input_data], ["OUTPUT0"], self.inference_type)
-            if response:
-                result = np.array(response.as_numpy("OUTPUT0")).flatten()
-
-                decoded_result = []
-                for x in result:
-                    # Convert string representation of bytes to actual bytes
-                    x = codecs.escape_decode(x)[0]
-
-                    # Decode with utf-8, ignore undecodable bytes
-                    decoded_string = x.decode('utf-8', 'ignore')
-
-                    # Remove non-ASCII characters
-                    decoded_string = re.sub(r'[^\x00-\x7F]+', '', decoded_string)
-
-                    decoded_result.append(decoded_string)
-
-                return decoded_result
 
 
 

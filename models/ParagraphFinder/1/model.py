@@ -42,24 +42,17 @@ class TritonPythonModel():
         for request in requests:
             in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
             text = str(in_0.as_numpy()[0])
-            logging.info(in_0)
-            logging.info(text)
             try:
                 with torch.inference_mode():
                     paragraphs = self.paragraph_finder(text)
-                    logging.info(paragraphs)
                     # Here change np.object to object
-                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs), dtype=object)
-                    logging.info(out_tensor)
+                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array([paragraphs]), dtype=object)
                     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
                     responses.append(inference_response)
-                    logging.info(responses)
                     print(responses)
 
             except Exception as e:
                 error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
                 responses.append(error_response)
-                logging.info(responses)
 
-        logging.info(responses)          
         return responses
