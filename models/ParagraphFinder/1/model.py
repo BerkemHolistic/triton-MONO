@@ -2,6 +2,7 @@
 from typing import List, Dict, Optional
 import numpy as np
 import torch
+import triton_python_backend_utils as pb_utils
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
 
@@ -28,7 +29,8 @@ class TritonPythonModel():
 
         return generated_text
 
-    def execute(self,input_text):
+
+    def paragraph_finder(self,input_text):
         # Generate a more structured version of the input text
         structured_text = self.generate_text(input_text)
 
@@ -36,3 +38,15 @@ class TritonPythonModel():
         paragraphs = structured_text.strip().split('\n\n')
 
         return paragraphs
+    
+    def execute(self, requests):
+        responses = []
+        for request in requests:
+            in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
+            text = str(in_0.as_numpy()[0])
+            paragraphs = self.paragraph_finder(text)
+            # Here change np.object to object
+            out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_))
+            inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
+            responses.append(inference_response)
+        return responses

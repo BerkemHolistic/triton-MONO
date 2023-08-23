@@ -19,6 +19,8 @@ tritonserver --model-repository `pwd`/models
 ## CLIENT SERVER ##
 # On another terminal
 
+docker run -ti --net host nvcr.io/nvidia/tritonserver:22.08-py3-sdk /bin/bash
+
 cd risk_mapping_automation_triton/client
 
 bash setup_environment.sh
