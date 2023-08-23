@@ -1,6 +1,4 @@
-from inference import InferenceLoader
-from pipe
-    
+from inference import InferenceLoader    
 
 
 if __name__ == "__main__":
