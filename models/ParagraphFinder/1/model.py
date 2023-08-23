@@ -57,4 +57,6 @@ class TritonPythonModel():
                 error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
                 responses.append(error_response)
                 logging.info(responses)
+
+        logging.info(responses)          
         return responses
