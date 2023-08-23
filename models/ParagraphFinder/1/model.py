@@ -41,7 +41,7 @@ class TritonPythonModel():
             text = str(in_0.as_numpy()[0])
             paragraphs = self.paragraph_finder(text)
             # Here change np.object to object
-            out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_))
+            out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype=object)
             inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
             responses.append(inference_response)
         return responses
