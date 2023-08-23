@@ -19,4 +19,4 @@ if __name__ == "__main__":
     
     test_model = InferenceLoader("ExtractiveQA")
 
-    print(test_model.predict_SM('chickens can not fly', 'the shark tale movies are great arent they?'))
+    print(test_model.predict_SM('the weather is great today', 'what will the weather be like today?'))
