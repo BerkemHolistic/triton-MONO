@@ -49,10 +49,10 @@ class TritonPythonModel():
                     out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype=object)
                     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
                     responses.append(inference_response)
+                    logging.info(responses)
 
             except Exception as e:
                 error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
                 responses.append(error_response)
-
-        logging.info(responses)
+                logging.info(responses)
         return responses
