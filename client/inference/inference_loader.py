@@ -34,7 +34,7 @@ class InferenceLoader:
             response = self.process_inference([input_data], ["embedding"], self.inference_type)
             if response:
                 return response.as_numpy("embedding")
-            
+
     def predict_SM(self, question,context=None,option=None):
         if self.inference_type == "ExtractiveQA":
             input_question = self.create_infer_input("question", [question])
@@ -42,14 +42,14 @@ class InferenceLoader:
             response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
             if response:
                 return [response.as_numpy("answer")[0].decode('utf-8')]
-        
+
         elif self.inference_type == "AbstractiveQA":
             input_question = self.create_infer_input("question", [question])
             input_context = self.create_infer_input("context", [context])
             response = self.process_inference([input_question, input_context], ["answer"], self.inference_type)
             if response:
                 return [response.as_numpy("answer")[0].decode('utf-8')]
-            
+
         elif self.inference_type == "MultiQA":
             questions = [question]*len(option)
             contexts = [context]*len(option)
@@ -63,8 +63,6 @@ class InferenceLoader:
                 options = [ast.literal_eval(item.decode('utf-8'))[0].decode('utf-8') for item in original_options]
                 probs = list(original_probs.astype(float))
                 return options, probs
-
-        
 
     def paragraph_creator(self, text):
         if self.inference_type == "ParagraphFinder":
