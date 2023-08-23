@@ -39,9 +39,15 @@ class TritonPythonModel():
         for request in requests:
             in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
             text = str(in_0.as_numpy()[0])
-            paragraphs = self.paragraph_finder(text)
-            # Here change np.object to object
-            out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype=object)
-            inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
-            responses.append(inference_response)
+            try:
+                with torch.inference_mode():
+                paragraphs = self.paragraph_finder(text)
+                # Here change np.object to object
+                out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype=object)
+                inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
+                responses.append(inference_response)
+                
+            except Exception as e:
+                error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
+                responses.append(error_response)
         return responses
