@@ -40,8 +40,11 @@ class TritonPythonModel():
         responses = []
 
         for request in requests:
-            in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
-            text = str(in_0.as_numpy()[0])
+            # in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
+            # text = str(in_0.as_numpy()[0])
+            in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0").as_numpy()
+            text = [str(txt[0]) for txt in in_0] 
+
             try:
                 with torch.inference_mode():
                     paragraphs = self.paragraph_finder(text)
