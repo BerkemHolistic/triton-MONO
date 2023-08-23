@@ -17,6 +17,6 @@ if __name__ == "__main__":
     
     # print(riskmapping_creation(project_result,risk_mapping_result,False))
     
-    test_model = InferenceLoader("ParagraphFinder")
+    test_model = InferenceLoader("ExtractiveQA")
 
-    print(test_model.paragraph_creator('Can we go to chucky cheese?'))
+    print(test_model.predict_SM('chickens can not fly', 'the shark tale movies are great arent they?'))
