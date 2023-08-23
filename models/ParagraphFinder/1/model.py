@@ -6,7 +6,7 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
 
 class TritonPythonModel():
-    def initialize(self):
+    def initialize(self, args):
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         self.model = GPT2LMHeadModel.from_pretrained("gpt2")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
