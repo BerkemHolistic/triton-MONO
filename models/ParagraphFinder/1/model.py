@@ -32,14 +32,10 @@ class TritonPythonModel():
 
     def paragraph_finder(self,input_text):
         # Generate a more structured version of the input text
-        structured_text = self.generate_text(input_text)
+        structured_text = self.generate_text(str(input_text))
         # Split the structured text into paragraphs based on empty lines
         paragraphs = structured_text.strip().split('\n\n')
-
-        # Generate a more structured version of the input text
-        # structured_text = self.generate_text(input_text)
-        # Split the structured text into paragraphs based on empty lines
-        # paragraphs = input_text.strip().split('\n\n')
+        
         return paragraphs
 
     def execute(self, requests):
