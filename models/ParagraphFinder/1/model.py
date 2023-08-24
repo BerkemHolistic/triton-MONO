@@ -35,7 +35,7 @@ class TritonPythonModel():
         structured_text = self.generate_text(str(input_text))
         # Split the structured text into paragraphs based on empty lines
         paragraphs = structured_text.strip().split('\n\n')
-        
+
         return paragraphs
 
     def execute(self, requests):
@@ -45,7 +45,8 @@ class TritonPythonModel():
             text = str(in_0.as_numpy()[0])
             paragraphs = self.paragraph_finder(text)
             # Here change np.object to object
-            out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]).astype(np.bytes_), dtype = object)
+            # out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]).astype(np.bytes_), dtype = object)
+            out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]), dtype = object)
             logging.info('Error here')
             inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
             logging.info('NO ERROR here')
