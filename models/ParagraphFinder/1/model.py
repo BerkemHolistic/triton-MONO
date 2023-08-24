@@ -46,9 +46,7 @@ class TritonPythonModel():
             paragraphs = self.paragraph_finder(text)
             # Here change np.object to object
             # out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]).astype(np.bytes_), dtype = object)
-            out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]), dtype = object)
-            logging.info('Error here')
+            out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para.encode('utf-8') for para in paragraphs]))
             inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
-            logging.info('NO ERROR here')
             responses.append(inference_response)
         return responses
