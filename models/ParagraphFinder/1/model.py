@@ -55,7 +55,7 @@ class TritonPythonModel():
                 with torch.inference_mode():
                     paragraphs = self.paragraph_finder(text)
                     # Here change np.object to object
-                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para for para in paragraphs]), dtype=object)
+                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array([paragraphs]), dtype=object)
                     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
                     responses.append(inference_response)
 
