@@ -50,6 +50,7 @@ class TritonPythonModel():
             # text = str(in_0.as_numpy()[0])
             in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0").as_numpy()
             text = [str(txt[0]) for txt in in_0] 
+            logging.info(text)
 
             try:
                 with torch.inference_mode():
