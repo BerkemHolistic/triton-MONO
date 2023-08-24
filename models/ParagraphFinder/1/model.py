@@ -12,7 +12,6 @@ class TritonPythonModel():
     def initialize(self, args):
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         self.model = GPT2LMHeadModel.from_pretrained("gpt2")
-        self.model_config = model_config = json.loads(args["model_config"])
 
 
     def generate_text(self, input_text, max_length=1000):
@@ -51,7 +50,7 @@ class TritonPythonModel():
                 with torch.inference_mode():
                     paragraphs = self.paragraph_finder(text)
                     # Here change np.object to object
-                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs), dtype=object)
+                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array([para for para in paragraphs]), dtype=object)
                     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
                     responses.append(inference_response)
 
