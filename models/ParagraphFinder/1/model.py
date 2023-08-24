@@ -5,6 +5,8 @@ import torch
 import triton_python_backend_utils as pb_utils
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import logging
+import json
+
 logging.basicConfig(level=logging.INFO)
 
 
@@ -12,6 +14,13 @@ class TritonPythonModel():
     def initialize(self, args):
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         self.model = GPT2LMHeadModel.from_pretrained("gpt2")
+        self.model_config = model_config = json.loads(args["model_config"])
+        # Get OUTPUT0 configuration
+        output0_config = pb_utils.get_output_config_by_name(model_config, "OUTPUT0")
+        self.output0_dtype = pb_utils.triton_string_to_numpy(
+            output0_config["data_type"]
+        )
+
 
     def generate_text(self, input_text, max_length=1000):
         # Encode the input text
@@ -42,35 +51,34 @@ class TritonPythonModel():
         for request in requests:
             # in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
             # text = str(in_0.as_numpy()[0])
-            in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0").as_numpy()
-            text = [str(txt[0]) for txt in in_0] 
+            text = pb_utils.get_input_tensor_by_name(request, "INPUT0").as_numpy()
+            # text = [str(txt[0]) for txt in in_0] 
 
-            return text
-        
-            #     try:
-            #         with torch.inference_mode():
-            #             paragraphs = self.paragraph_finder(text)
-            #             # Here change np.object to object
-            #             out_tensor = pb_utils.Tensor("OUTPUT0", np.array([paragraphs]), dtype=object)
-            #             inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
-            #             responses.append(inference_response)
-            #             print(responses)
+            try:
+                with torch.inference_mode():
+                    paragraphs = self.paragraph_finder(str(text))
+                    # Here change np.object to object
+                    out_tensor = pb_utils.Tensor("OUTPUT0", paragraphs.astype(self.output0_dtype))
+                    inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
+                    responses.append(inference_response)
+                    print(responses)
 
-            #     except Exception as e:
-            #         error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
-            #         responses.append(error_response)
+            except Exception as e:
+                error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
+                responses.append(error_response)
 
-            # return responses
+        return responses
     
 
         # def execute(self, requests):
-            # responses = []
-            # for request in requests:
-            #     in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
-            #     text = str(in_0.as_numpy()[0])
-            #     paragraphs = self.paragraph_finder(text)
-            #     # Here change np.object to object
-            #     out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_))
-            #     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
-            #     responses.append(inference_response)
-            # return responses
+        # responses = []
+        # for request in requests:
+        #     in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
+        #     text = str(in_0.as_numpy()[0])
+        #     paragraphs = self.paragraph_finder(text)
+        #     # Here change np.object to object
+        #     out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_))
+        #     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
+        #     responses.append(inference_response)
+        # return responses
+
