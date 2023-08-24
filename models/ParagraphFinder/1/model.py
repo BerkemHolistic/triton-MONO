@@ -48,9 +48,11 @@ class TritonPythonModel():
             in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
             text = str(in_0.as_numpy()[0])
             paragraphs = self.paragraph_finder(text)
+            logging.info('ERROR HERE')
             logging.info(paragraphs)
             # Here change np.object to object
             out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs).astype(np.bytes_), dtype = object)
+            logging.info('No here')
             logging.info(out_tensor)
             inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
             logging.info(inference_response)
