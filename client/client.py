@@ -24,4 +24,4 @@ if __name__ == "__main__":
 
             In summary, AI systems such as Emplify represent the dawn of a new era in Human Resources, one that harmonizes human decision-making with AI's analytical prowess. These systems pose significant potential, ushering in transformative changes in the HR landscape, while simultaneously presenting new challenges to be navigated responsibly and ethically. '''
                 
-    print(test_model.paragraph_creator(str(example_text)))
+    print(len(test_model.paragraph_creator(str(example_text))))
