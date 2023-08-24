@@ -41,7 +41,7 @@ class TritonPythonModel():
         # Split the structured text into paragraphs based on empty lines
         # paragraphs = input_text.strip().split('\n\n')
         return paragraphs
-    
+
     def execute(self, requests):
         responses = []
 
@@ -54,9 +54,11 @@ class TritonPythonModel():
 
             try:
                 with torch.inference_mode():
-                    paragraphs = self.paragraph_finder(text)
+                    structured_text = self.generate_text(text) # generate text
+                    paragraphs = structured_text.strip().split('\n\n') # split into paragraphs
+
                     # Here change np.object to object
-                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array([paragraphs]), dtype=object)
+                    out_tensor = pb_utils.Tensor("OUTPUT0", np.array(paragraphs), dtype=object)
                     inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
                     responses.append(inference_response)
 
@@ -66,6 +68,33 @@ class TritonPythonModel():
 
         return responses
     
+
+    # def execute(self, requests):
+    #     responses = []
+
+    #     for request in requests:
+    #         # in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0")
+    #         # text = str(in_0.as_numpy()[0])
+    #         in_0 = pb_utils.get_input_tensor_by_name(request, "INPUT0").as_numpy()
+    #         text = [str(txt[0]) for txt in in_0] 
+    #         logging.info(text)
+
+    #         try:
+    #             with torch.inference_mode():
+    #                 paragraphs = self.paragraph_finder(text)
+    #                 # Here change np.object to object
+    #                 out_tensor = pb_utils.Tensor("OUTPUT0", np.array([paragraphs]), dtype=object)
+    #                 inference_response = pb_utils.InferenceResponse(output_tensors=[out_tensor])
+    #                 responses.append(inference_response)
+
+    #         except Exception as e:
+    #             error_response = pb_utils.InferenceResponse(output_tensors=[], error=str(e))
+    #             responses.append(error_response)
+
+    #     return responses
+    
+
+
 
         # def execute(self, requests):
         # responses = []
